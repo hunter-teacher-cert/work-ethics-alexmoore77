@@ -26,23 +26,23 @@ def drawBoard(  ):
   print('\n\n\n\n\n\n\n\n\n\n');
 
 def modifySquare(myLetter, myNumber, myChar ):
-  if myLetter=='A':
+  if myLetter=='A' or myLetter=='a':
     myLetterConverted=0
-  if myLetter=='B':
+  if myLetter=='B' or myLetter=='b':
     myLetterConverted=1
-  if myLetter=='C':
+  if myLetter=='C' or myLetter=='c':
     myLetterConverted=2
-  if myLetter=='D':
+  if myLetter=='D' or myLetter=='d':
     myLetterConverted=3
-  if myLetter=='E':
+  if myLetter=='E' or myLetter=='e':
     myLetterConverted=4
-  if myLetter=='F':
+  if myLetter=='F' or myLetter=='f':
     myLetterConverted=5
-  if myLetter=='G':
+  if myLetter=='G' or myLetter=='g':
     myLetterConverted=6
-  if myLetter=='H':
+  if myLetter=='H' or myLetter=='h':
     myLetterConverted=7
-  board[myNumber, myLetterConverted]=myChar
+  board[myNumber][myLetterConverted]=myChar
 
 drawBoard()
 
@@ -83,5 +83,5 @@ while (1==1):
   print('destinationNumberTo: '+destinationNumberTo)
   
   
-  #modifySquare(startLetterFrom, startNumberFrom, ' ')
+  modifySquare(startLetterFrom, startNumberFrom, ' ')
   #modifySquare(destinationLetterTo, destinationNumberTo, 'P')
