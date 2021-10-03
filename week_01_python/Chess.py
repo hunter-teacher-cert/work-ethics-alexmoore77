@@ -16,13 +16,16 @@ board=[
   ['R','N','B','Q','K','B','N','R']
 ]
 
+#currently draws board from index 1 to 8 - could be problem
 def drawBoard(  ):
   print('\n\n\n\n\n\n\n\n\n\nBeginning Chess!\n')
-  print('    A   B   C   D   E   F   G   H   I   J')
-  counter=8
+  print('                 '+player1+'               ')
+  print('    A    B    C    D   E    F    G     H')
+  counter=1
   for (x) in board:
     print(str(counter)+' '+str(x))
-    counter=counter-1
+    counter=counter+1
+  print('                 '+player2+'               ')
   print('\n\n\n\n\n\n\n\n\n\n');
 
 def modifySquare(myLetter, myNumber, myChar ):
@@ -42,7 +45,14 @@ def modifySquare(myLetter, myNumber, myChar ):
     myLetterConverted=6
   if myLetter=='H' or myLetter=='h':
     myLetterConverted=7
-  board[myNumber][myLetterConverted]=myChar
+  myNumberConverted=(int(myNumber)-1)
+
+  print ('myLetterConvered is equal to '+str(myLetterConverted))
+  print (' myNumberConvered is equal to '+str(myNumberConverted))
+#store the board charater
+  tempBoardChar=  board[myNumberConverted][myLetterConverted]
+  board[myNumberConverted][myLetterConverted]=myChar
+  return tempBoardChar
 
 drawBoard()
 
@@ -83,5 +93,7 @@ while (1==1):
   print('destinationNumberTo: '+destinationNumberTo)
   
   
-  modifySquare(startLetterFrom, startNumberFrom, ' ')
+  modifySquare(destinationLetterTo, destinationNumberTo, modifySquare(startLetterFrom, startNumberFrom, ' ')
+  )
+  #The modifySquare() for the destination square empties that square and returns the character of the piece that was there.  The modfifySquare for the destination square places that piece at that square
   #modifySquare(destinationLetterTo, destinationNumberTo, 'P')
