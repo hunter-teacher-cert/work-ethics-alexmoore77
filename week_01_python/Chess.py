@@ -6,26 +6,37 @@
 player1=""
 player2=""
 board=[
-  ['R','N','B','Q','K','B','N','R'],
-  ['P','P','P','P','P','P','P','P'],
-  [' ',' ',' ',' ',' ',' ',' ',' '],
-  [' ',' ',' ',' ',' ',' ',' ',' '],
-  [' ',' ',' ',' ',' ',' ',' ',' '],
-  [' ',' ',' ',' ',' ',' ',' ',' '],  
-  ['P','P','P','P','P','P','P','P'],
-  ['R','N','B','Q','K','B','N','R']
+  ['[ R ]','[ N ]','[ B ]','[ Q ]','[ K ]','[ B ]','[ N ]','[ R ]'],
+  ['[ P ]','[ P ]','[ P ]','[ P ]','[ P ]','[ P ]','[ P ]','[ P ]'],
+  ['[___]','[___]','[___]','[___]','[___]','[___]','[___]','[___]'],
+ ['[___]','[___]','[___]','[___]','[___]','[___]','[___]','[___]'],
+  ['[___]','[___]','[___]','[___]','[___]','[___]','[___]','[___]'],
+  ['[___]','[___]','[___]','[___]','[___]','[___]','[___]','[___]'],
+  ['[_P_]','[_P_]','[_P_]','[_P_]','[_P_]','[_P_]','[_P_]','[_P_]'],
+  ['[_R_]','[_N_]','[_B_]','[_Q_]','[_K_]','[_B_]','[_N_]','[_R_]']
 ]
 
 #currently draws board from index 1 to 8 - could be problem
 def drawBoard(  ):
   print('\n\n\n\n\n\n\n\n\n\nBeginning Chess!\n')
-  print('                 '+player1+'               ')
-  print('    A    B    C    D   E    F    G     H')
-  counter=1
-  for (x) in board:
-    print(str(counter)+' '+str(x))
-    counter=counter+1
-  print('                 '+player2+'               ')
+  print('            '+player1+'               ')
+  print('   A    B    C    D    E    F    G    H')
+  counter=8
+  myRow=7
+  myCol=0
+  while myRow >= 0:
+    print (str(counter), end='')
+    while myCol < 8:
+      print (str(board[myRow][myCol]), end='')
+      myCol=myCol+1
+    print('') 
+    myRow=myRow-1
+    counter=counter-1
+    myCol=0
+  #for (x) in board:
+  #  print(str(counter)+' '+str(x))
+  #  counter=counter+1
+  print('            '+player2+'               ')
   print('\n\n\n\n\n\n\n\n\n\n');
 
 def modifySquare(myLetter, myNumber, myChar ):
@@ -92,8 +103,7 @@ while (1==1):
   print('destinationLetterTo: '+destinationLetterTo)
   print('destinationNumberTo: '+destinationNumberTo)
   
-  
-  modifySquare(destinationLetterTo, destinationNumberTo, modifySquare(startLetterFrom, startNumberFrom, ' ')
+  modifySquare(destinationLetterTo, destinationNumberTo, modifySquare(startLetterFrom, startNumberFrom, '[___]')
   )
   #The modifySquare() for the destination square empties that square and returns the character of the piece that was there.  The modfifySquare for the destination square places that piece at that square
   #modifySquare(destinationLetterTo, destinationNumberTo, 'P')
