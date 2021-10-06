@@ -26,11 +26,12 @@ Input: a dicitonary containing the number of regular economy seats sold.
     Returns: the total number of seats sold
     """
     sold = 0
+    #AM-using for loop with dictionary and key/value pairs, returns sum of number of tickets sold
     for v in economy_sold.values():
         sold = sold + v
     return sold
 
-
+#AM - still not clear on why the economy_sold seats need to be removed.  I'm assuming that when economy seats are sold that they remain avail and win until a later point, hence the need to subtract them
 def get_avail_seats(plane,economy_sold):
     """
     Parameters: plane : a list of lists representing plane
@@ -92,9 +93,11 @@ def purchase_economy_plus(plane,economy_sold,name):
     
     if random.randrange(100) > 30:
         # make a list of all the rows using a list comprehension
+        #AM:  Looked up list comprehension - Here order is a new list that consists of all rows (I think)
         order = [x for x in range(rows)]
 
         # randomzie it
+        #AM: shuffling order of order list - why?
         random.shuffle(order)
 
         # go through the randomized list to see if there's an available seat
@@ -132,6 +135,9 @@ def seat_economy(plane,economy_sold,name):
     cols = len(plane[0])
 
     # add code to seat all the economy_sold people
+    #AM how to seat all of the economy_sold?
+    
+    
     return plane
 
 
@@ -171,6 +177,8 @@ def fill_plane(plane):
     # for example, when to stop purchases, the probabilities, maybe the size for the random
     # regular economy size
 
+#AM The max family size is 3
+#70% chance of...?
     max_family_size = 3
     while total_seats > 1:
         r = random.randrange(100)
