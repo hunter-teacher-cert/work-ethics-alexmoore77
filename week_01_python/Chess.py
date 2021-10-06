@@ -3,6 +3,8 @@
 # Beginning Chess:  2-Player Edition is designed to allow two players to enjoy the wonderful game of chess!
 
 #initilizing board globally so it does not need to be passed among functions
+#my plan for later is possibly to create classes for these and corresponding global objects with getter and setter functions to minimize global variable issues.
+annotation=""
 player1=""
 player2=""
 board=[
@@ -16,7 +18,15 @@ board=[
   ['[_R_]','[_N_]','[_B_]','[_Q_]','[_K_]','[_B_]','[_N_]','[_R_]']
 ]
 
-#currently draws board from index 1 to 8 - could be problem
+#return the value at the entered square of the board
+def pieceReturn(myLetter, myNumber)
+  return piece
+
+#return an updated annotatation string that includes the most recent move
+def annotationAdd(myAnnotation, myPiece, myFrom, myTo, myTurn)
+  return myAnnotation+' '+ myPiece+myFrom+'-'+myTo
+
+#draw the board by traversing the multidimensional array with nested while loops
 def drawBoard(  ):
   print('\n\n\n\n\n\n\n\n\n\nBeginning Chess!\n')
   print('            '+player1+'               ')
@@ -39,6 +49,7 @@ def drawBoard(  ):
   print('            '+player2+'               ')
   print('\n\n\n\n\n\n\n\n\n\n');
 
+#Change any square by altering the value it holds.  This is used when a piece moves off of a square and when it moves on to a new square.
 def modifySquare(myLetter, myNumber, myChar ):
   if myLetter=='A' or myLetter=='a':
     myLetterConverted=0
@@ -89,6 +100,7 @@ while (1==1):
      thisPlayer=player2
   print ('The turn is '+str(turn)+'.  The player is '+thisPlayer)
   drawBoard();
+annotationAdd()
   print (thisPlayer+ ', from what square will you move your piece?')
   start=input()
   print (thisPlayer+ ', to what square would you like to move this piece?')
