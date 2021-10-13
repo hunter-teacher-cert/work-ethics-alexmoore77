@@ -19,12 +19,12 @@ board=[
 ]
 
 #return the value at the entered square of the board
-def pieceReturn(myLetter, myNumber)
-  return piece
+#def pieceReturn(myLetter, myNumber)
+#  return piece
 
 #return an updated annotatation string that includes the most recent move
-def annotationAdd(myAnnotation, myPiece, myFrom, myTo, myTurn)
-  return myAnnotation+' '+ myPiece+myFrom+'-'+myTo
+#def annotationAdd(myAnnotation, myPiece, myFrom, myTo, myTurn)
+#  return myAnnotation+' '+ myPiece+myFrom+'-'+myTo
 
 #draw the board by traversing the multidimensional array with nested while loops
 def drawBoard(  ):
@@ -49,29 +49,46 @@ def drawBoard(  ):
   print('            '+player2+'               ')
   print('\n\n\n\n\n\n\n\n\n\n');
 
+#recursively check all possible moves for the rook.  Add each possible move to a list, and return the list.
+def rookAvailableMovesListReturn(myLetter, myNumber, myChar):
+myConvertedLetter=convertLetter(myLetter)
+myConvertedNumber=convertNumber(myNumber)
+
+#base case for recursive functions
+#how to make recursive function?
+
+
+#convert chess annotation letter to a 0-index list value.
+def convertLetter(myLetter):
+  if myLetter=='A' or myLetter=='a':
+    return 0
+  if myLetter=='B' or myLetter=='b':
+    return 1
+  if myLetter=='C' or myLetter=='c':
+    return 2
+  if myLetter=='D' or myLetter=='d':
+    return 3
+  if myLetter=='E' or myLetter=='e':
+    return 4
+  if myLetter=='F' or myLetter=='f':
+    return 5
+  if myLetter=='G' or myLetter=='g':
+    return 6
+  if myLetter=='H' or myLetter=='h':
+    return 7
+
+#convert chess annotation number to a 0-index list value
+def convertNumber(myNumber):
+  return (int(myNumber)-1)
+
 #Change any square by altering the value it holds.  This is used when a piece moves off of a square and when it moves on to a new square.
 def modifySquare(myLetter, myNumber, myChar ):
-  if myLetter=='A' or myLetter=='a':
-    myLetterConverted=0
-  if myLetter=='B' or myLetter=='b':
-    myLetterConverted=1
-  if myLetter=='C' or myLetter=='c':
-    myLetterConverted=2
-  if myLetter=='D' or myLetter=='d':
-    myLetterConverted=3
-  if myLetter=='E' or myLetter=='e':
-    myLetterConverted=4
-  if myLetter=='F' or myLetter=='f':
-    myLetterConverted=5
-  if myLetter=='G' or myLetter=='g':
-    myLetterConverted=6
-  if myLetter=='H' or myLetter=='h':
-    myLetterConverted=7
-  myNumberConverted=(int(myNumber)-1)
+  myLetterConverted=convertLetter(myLetter)
+  myNumberConverted=convertNumber(myNumber)
 
   print ('myLetterConvered is equal to '+str(myLetterConverted))
   print (' myNumberConvered is equal to '+str(myNumberConverted))
-#store the board charater
+  #store the board character
   tempBoardChar=  board[myNumberConverted][myLetterConverted]
   board[myNumberConverted][myLetterConverted]=myChar
   return tempBoardChar
@@ -99,8 +116,8 @@ while (1==1):
   if turn %2 ==1:
      thisPlayer=player2
   print ('The turn is '+str(turn)+'.  The player is '+thisPlayer)
-  drawBoard();
-annotationAdd()
+  drawBoard()
+  #annotationAdd()
   print (thisPlayer+ ', from what square will you move your piece?')
   start=input()
   print (thisPlayer+ ', to what square would you like to move this piece?')
