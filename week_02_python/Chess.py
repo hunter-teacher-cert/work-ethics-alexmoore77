@@ -91,15 +91,22 @@ def pieceAtSquare(myLetterFrom, myNumberFrom):
 def updateAnnotation(myLetterFrom, myNumberFrom, myLetterTo,myNumberTo, annotation, turn):
 #Find the piece at the square passed in, and isolate the letter.  Follow that with the letter and the number.
   myPiece=pieceAtSquare(myLetterFrom, myNumberFrom)[2:3]
-  if myPiece=='P':
+  myDestination=pieceAtSquare(myLetterTo,myNumberTo)[2:3]
+  if myDestination=='_':
+    mySymbol=''
+  elif myDestination!='_':
+    mySymbol='x'
+  if myPiece=='P' and mySymbol!='x':
     myPiece=''
-  
+  elif myPiece=='P' and mySymbol=='x':
+    myPiece=myLetterFrom
+
   if turn%2==1:
     print('It is turn 1!')
-    annotation+='\n'+str(turn)+'. '+myPiece+myLetterTo+myNumberTo
+    annotation+='\n'+str(turn)+'. '+myPiece+mySymbol+myLetterTo+myNumberTo
   if turn%2==0:
     print('It is turn 2!')
-    annotation+='    ' +str(turn)+'. '+myPiece+myLetterTo+myNumberTo
+    annotation+='    ' +str(turn)+'. '+myPiece+mySymbol+myLetterTo+myNumberTo
     
   print ('Annotation:'+annotation)
   return annotation
