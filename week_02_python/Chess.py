@@ -27,7 +27,7 @@ board=[
 #  return myAnnotation+' '+ myPiece+myFrom+'-'+myTo
 
 #draw the board by traversing the multidimensional array with nested while loops
-def drawBoard(  ):
+def drawBoard(annotation):
   print('\n\n\n\n\n\n\n\n\n\nBeginning Chess!\n')
   print('            '+player1+'               ')
   print('   A    B    C    D    E    F    G    H')
@@ -47,12 +47,14 @@ def drawBoard(  ):
   #  print(str(counter)+' '+str(x))
   #  counter=counter+1
   print('            '+player2+'               ')
-  print('\n\n\n\n\n\n\n\n\n\n');
+  print('\n\n')
+  print(annotation)
+  print('\n\n\n\n\n\n\n\n');
 
 #recursively check all possible moves for the rook.  Add each possible move to a list, and return the list.
 def rookAvailableMovesListReturn(myLetter, myNumber, myChar):
-myConvertedLetter=convertLetter(myLetter)
-myConvertedNumber=convertNumber(myNumber)
+  myConvertedLetter=convertLetter(myLetter)
+  myConvertedNumber=convertNumber(myNumber)
 
 #base case for recursive functions
 #how to make recursive function?
@@ -81,6 +83,23 @@ def convertLetter(myLetter):
 def convertNumber(myNumber):
   return (int(myNumber)-1)
 
+def pieceAtSquare(myLetterFrom, myNumberFrom):
+  myLetterConverted=convertLetter(myLetterFrom)
+  myNumberConverted=convertNumber(myNumberFrom)
+  return board[myNumberConverted][myLetterConverted]
+
+def updateAnnotation(myLetterFrom, myNumberFrom, myLetterTo,myNumberTo, annotation, turn):
+#Find the piece at the square passed in, and isolate the letter.  Follow that with the letter and the number.
+  if turn%2==1:
+    print('It is turn 1!')
+    annotation+='\n'+str(turn)+'. '+pieceAtSquare(myLetterFrom, myNumberFrom)[2:3]+myLetterTo+myNumberTo
+  if turn%2==0:
+    print('It is turn 2!')
+    annotation+='    ' +str(turn)+'. '+pieceAtSquare(myLetterFrom, myNumberFrom)[2:3]+myLetterTo+myNumberTo
+    
+  print ('Annotation:'+annotation)
+  return annotation
+
 #Change any square by altering the value it holds.  This is used when a piece moves off of a square and when it moves on to a new square.
 def modifySquare(myLetter, myNumber, myChar ):
   myLetterConverted=convertLetter(myLetter)
@@ -93,7 +112,7 @@ def modifySquare(myLetter, myNumber, myChar ):
   board[myNumberConverted][myLetterConverted]=myChar
   return tempBoardChar
 
-drawBoard()
+drawBoard(annotation)
 
 print('Please enter the name of player 1:')
 player1=input()
@@ -101,7 +120,7 @@ print('Welcome, '+ player1 +'!  Now enter the name of player 2.')
 player2=input()
 print('\n\n\n\n\n\n\n\n\n\nWelcome to Beginning Chess!\n')
 
-drawBoard()
+drawBoard(annotation)
 
 
 turn=0
@@ -116,7 +135,7 @@ while (1==1):
   if turn %2 ==1:
      thisPlayer=player2
   print ('The turn is '+str(turn)+'.  The player is '+thisPlayer)
-  drawBoard()
+  drawBoard(annotation)
   #annotationAdd()
   print (thisPlayer+ ', from what square will you move your piece?')
   start=input()
@@ -131,7 +150,11 @@ while (1==1):
   print('startNumberFrom: '+startNumberFrom)
   print('destinationLetterTo: '+destinationLetterTo)
   print('destinationNumberTo: '+destinationNumberTo)
-  
+
+  annotation=updateAnnotation(startLetterFrom, startNumberFrom, destinationLetterTo, destinationNumberTo, annotation, turn)
+  print('Annotation:\n'+annotation)
+
+
   modifySquare(destinationLetterTo, destinationNumberTo, modifySquare(startLetterFrom, startNumberFrom, '[___]')
   )
   #The modifySquare() for the destination square empties that square and returns the character of the piece that was there.  The modfifySquare for the destination square places that piece at that square
