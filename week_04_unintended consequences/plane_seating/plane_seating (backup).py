@@ -1,36 +1,19 @@
 #AM Annotated plane_seating.Python
 #alexmoore77
-#Ethical Airlines Solution:  Let families sit together.
-"""
-Note:  I spent over ten hours on this project.  It helped me to improve my Python skills significantly and begin to understand many key/value pairings in particular
-
-Key Ethical Addition:  Allow families to sit together.  
-1) Create an original set of families with names and values.
-2) Traverse the dictionary and use concatenation to create individual family members with the naming convention lastName-memberNumber
-3)  Traverse the plane horizontally and then vertically.
-4)  Splice the name string to retrieve the last name, and pass this as an added argument to the function.
-5)  Check the argument name against any existing plane names.  If there is a match and an adjacent seat is open, assign that customer there.  
-6)  If there is no match, place the customer randomly.
-
-Implementation:  
-1) I created some original functions.
-2) I slightly or signifantly modified existing functions.
-3) I debugged like nobody's business, hence all of the print statements.  
-
-Next Steps:  
-I plan to continue to work on my Python chess game.  As Python seems to be becoming the language of choice for AP CSP, it is certainly a good language to know.  Thanks.
-
-
-"""
+#Ethical Airlines Solution:  Let families sit together whether they choose economy or economy plus.
 
 #AM- This module adds psuedorandom numbers
 import random
+
+
 
 def family_print(economy_sold):
   for k in economy_sold.keys():
     print(k+" bought "+str(economy_sold[k])+" tickets.")
   #  print (v, economy_sold[v])
   #print(economy_sold)
+
+
 
 
 def create_plane(rows,cols):
@@ -145,8 +128,7 @@ def purchase_economy_plus(plane,economy_sold,name):
     if random.randrange(100) > 30:
      # make a list of all the rows using a list comprehension
       #AM:  Looked up list comprehension - Here order is a new list that consists of all rows (I think)
-    """ 
-    
+      order = [x for x in range(rows)]
 
       # randomzie it
       #AM: shuffling order of order list - why?
@@ -155,53 +137,49 @@ def purchase_economy_plus(plane,economy_sold,name):
 
       # go through the randomized list to see if there's an available seat
       # and if there is, assign it and return the new plane
-
+        
+      for row in order:
+            if plane[row][0] == "win":
+                plane[row][0] = name
+                return plane
+            elif plane[row][len(plane[0])-1] == "win":
+                plane[row][len(plane[0])-1] = name
+                return  plane
+      """
         
         #first, check for a matching last name
-    
-    for col in range(len(plane[0])):
-            if plane[0][col].split("_")[0] == name.split("_")[0] and plane[col][1]=="avail":
-                [1][col] = name
-                print("[1][col]"+name)
-                return plane
 
-            elif plane[1][col].split("_")[0] == name.split("_")[0] and plane[2][col]=="avail":
-                plane[2][col] = name
-                print("plane[col][2]="+name)
+    for row in order:
+            if plane[row][0].split("_")[0] == name.split("_")[0] and plane[row][1]=="avail":
+                plane[row][1] = name
                 return plane
-
-            elif plane[2][col].split("_")[0] == name.split("_")[0] and plane[4][col]=="avail":
-                plane[3][col] = name
-                print("plane[col][3]="+name)
+            elif plane[row][1].split("_")[0] == name.split("_")[0] and plane[row][2]=="avail":
+                plane[row][1] = name
                 return plane
-            
-            elif plane[3][col].split("_")[0] == name.split("_")[0] and plane[4][col]=="win":
-                plane[4][col] = name
-                print("[col][4]="+name)
+            elif plane[row][2].split("_")[0] == name.split("_")[0] and plane[row][3]=="avail":
+                plane[row][3] = name
                 return plane
-            else: 
-                print ("_________col:"+str(col)+"key in name:"+name.split("_")[0]+"spot:"+plane[4][col].split("_")[0])
-    print (">>I'm on line 163 out of first algorithm!")
+            elif plane[row][3].split("_")[0] == name.split("_")[0] and plane[row][4]=="win":
+                plane[row][4] = name
+                return plane
 
         #if no match, place the person where you can   
-    for col in range(len(plane[0])):
-            if plane[0][col]=="win":
-                plane[0][col] = name
+    for row in order:
+            if plane[row][0]=="win":
+                plane[row][0] = name
                 return plane
-            elif plane[1][col]=="avail": 
-                plane[1][col] = name
+            elif plane[row][1]=="avail": 
+                plane[row][1] = name
                 return plane
-            elif plane[2][col]=="avail":
-                plane[2][col] = name
+            elif plane[row][2]=="avail":
+                plane[row][2] = name
                 return plane
-            elif plane[3][col]=="avail":      
-                plane[3][col] = name
+            elif plane[row][3]=="avail":      
+                plane[row][3] = name
                 return plane
-            elif plane[4][col]=="win":      
-                plane[4][col] = name
+            elif plane[row][4]=="avail":      
+                plane[row][4] = name
                 return plane
-    print (">>I'm on line 183 out of second algorithm!")
-
 """"
 
    #AM:  WAIT - We can take the customer's preferences into account if no match is found and go with second choice, third choice, etc. instead of random - first come, first served
@@ -219,10 +197,9 @@ def purchase_economy_plus(plane,economy_sold,name):
 
 # THIS WILL BE LEFT EMPTY FOR THE FIRST STAGE OF THE PROJECT
  #AM:  WAIT - We can use the same algorithm as we did for assigning the Economy Plus seats, but just run the Economy Plus algorithm first.
-""" 
-def seat_economy(plane,economy_sold,name):
-
-  """  
+ 
+  def seat_economy(plane,economy_sold,name):
+    
   This is mostly the same as the purchase_economy_plus routine but 
   just does the random assignment. 
   We use this when we're ready to assign the economy seats after most 
@@ -232,17 +209,17 @@ def seat_economy(plane,economy_sold,name):
     
     
     
-  rows = len(plane)
-  cols = len(plane[0])
+        rows = len(plane)
+cols = len(plane[0])
 
 # add code to seat all the economy_sold people
 #added by AM ----------------------------------------
 #AM:  IMPORTANT - for assigning the economy seats, we are no longer going to subtract the number of economy seats when checking how many seats are left.
 # total unassigned seats
-  seats = get_avail_seats_while_seating_economy(plane)
+seats = get_avail_seats_while_seating_economy(plane)
 
 # exit if we have no more seats
-  if seats < 1:
+if seats < 1:
         print("We have no more seats:"+ str(seats)+" to be exact!")
         return plane
 
@@ -253,7 +230,7 @@ def seat_economy(plane,economy_sold,name):
     # and then trying each row to try to grab a seat
 
     #AM unclear what the random object is.  is random set to be a copy of plane?
-  if random.randrange(100) > 0:
+    if random.randrange(100) > 30:
         # make a list of all the rows using a list comprehension
         #AM:  Looked up list comprehension - Here order is a new list that consists of all rows (I think)
         order = [x for x in range(rows)]
@@ -289,18 +266,18 @@ def seat_economy(plane,economy_sold,name):
    #AM:  WAIT - We can take the customer's preferences into account if no match is found and go with second choice, third choice, etc. instead of random - first come, first served
     # if no window was available, just keep trying a random seat until we find an
     # available one, then assign it and return the new plane
-  found_seat = False
-  while not(found_seat):
+    found_seat = False
+    while not(found_seat):
         r_row = random.randrange(0,rows)
         r_col = random.randrange(0,cols)
         if plane[r_row][r_col] == "win" or plane[r_row][r_col] == "avail":
             plane[r_row][r_col] = name
             found_seat = True
 
-  print ("plane[r_row][r_col]==win or avail....and here's what the plane looks like now:")
-  print(get_plane_string(plane))
-  print ("<Hit enter.>")
-  delay=input()
+    print ("plane[r_row][r_col]==win or avail....and here's what the plane looks like now:")
+    print(get_plane_string(plane))
+    print ("<Hit enter.>")
+    delay=input()
 
 
   #END added by AM  ----------------------------------------
@@ -308,7 +285,7 @@ def seat_economy(plane,economy_sold,name):
 
     
     
-  return plane
+    return plane
 
 
 #AM-So whenever seats are purchased, the plane and the dictionary are updated.  The plane indicates the location of the seat, and the dictionary indicates the name (key) and number sold
@@ -361,10 +338,9 @@ def fill_plane(plane, economy_sold):
         
         plane = purchase_economy_plus(plane,economy_sold,str(key)+"_"+str(loopVar))
         loopVar=loopVar+1
-        print(">>Current State:  key="+key+", value="+str(economy_sold[key])+", loopVar="+str(loopVar))
-        #plane[0][0]="Demo_2"
-        #print("plane[0][0]="+plane[0][0])
-        #print("(plane[0][0].split(_))[0]="+(plane[0][0].split("_"))[0])
+        plane[0][0]="Demo_2"
+        print("plane[0][0]="+plane[0][0])
+        print("(plane[0][0].split(_))[0]="+(plane[0][0].split("_"))[0])
         """"
         r = random.randrange(100)
         if r > 30:
@@ -384,13 +360,11 @@ def fill_plane(plane, economy_sold):
     # seats to the economy plus passengers
     # you will have to complete the seat_economy function
     # Alternatively you can rewrite this section
-    
-    """
     for name in economy_sold.keys():
         for i in range(economy_sold[name]):
             print (">>Call:  seat_economy")
             plane = seat_economy(plane,economy_sold,name)
-    """
+
 
     return plane
     
@@ -434,21 +408,11 @@ def main():
    #AM- Family name key/value pairs - if more time, would be defined locally instead of globally
     economy_sold={
    
-    "Bradbury": 2,
-    "Pynchon": 3,
-    "Shakespeare": 4,
-    "Baldwin": 2,
+    "Smith": 2,
+    "Harris": 3,
+    "Lee": 2,
+    "Sanditos": 2,
     "Kramer": 3,
-    "Bozzano": 5,
-    "Rudolph": 6,
-    "Allen": 1,
-    "Capulet": 4,
-    "Salinger": 3,
-    "Lynch": 3,
-    "Holmes":2,
-    "Matute":2,
-    "Borges":5,
-    "Morrison":1
     }
 
     print (">>Call: family_print(economy_sold)")
